@@ -30,6 +30,27 @@ class GameManagement {
             }
         }
 
+        let addEventsToButtons = () => {
+            let endGameState = this.checkersLogic.getEndGameState();
+            document.getElementById("new game!!").addEventListener("click", () => {
+                if (confirm("Are u sure u want to start a new game???"))
+                    window.location.reload(false);
+            });
+            document.getElementById("offer draw").addEventListener("click", () => {
+                if (confirm((this.checkersLogic.isBlackTurn ? "Black" : "Red") + "  is offering a draw! Confirm???")) {
+                    endGameState.draw = true;
+                    handleEndGame(endGameState);
+                }
+            });
+            document.getElementById("resign game").addEventListener("click", () => {
+                if (confirm("Are u sure u want to loose the game?????")) {
+                    endGameState.win = true;
+                    endGameState.isBlack = !this.checkersLogic.isBlackTurn;
+                    handleEndGame(endGameState);
+                }
+            });
+        }
+
         let addEventMouseUpImg = (img) => {
             img.addEventListener("mouseup", (e) => {
                 e.preventDefault();
@@ -56,12 +77,12 @@ class GameManagement {
                         }
                     }
 
-                    this.graphics.printMessages(legalMoveState.message);
+                    this.graphics.renderMessages(legalMoveState.message);
                 }
 
                 this.graphics.renderPieces();
                 addEventsToNewPics();
-                handleEndGame(this.checkersLogic);
+                handleEndGame(this.checkersLogic.getEndGameState());
             });
         }
 
@@ -71,18 +92,18 @@ class GameManagement {
                 this.graphics.renderMovingMouseDown(currentImg, mouseMoveEvent);
         }
 
-        this.graphics.renderDivsBoard();
+        this.graphics.createAndRenderBoardAndPanel();
         this.graphics.renderPieces();
         let imgs = document.querySelectorAll("img");
         let currentImg, cureentDiv, mouseDown = false;
         addEventsToNewPics();
+        addEventsToButtons();
     }
 }
 
 
 
-let handleEndGame = (checkersLogic) => {
-    let endGameState = checkersLogic.getEndGameState();
+let handleEndGame = (endGameState) => {
     if (endGameState.win) {
         alert(endGameState.isBlack ? "Black WON!!" : "Red WON!!!");
         window.location.reload(false);

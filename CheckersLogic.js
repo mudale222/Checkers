@@ -89,16 +89,18 @@ class CheckersLogic {
             (mustEatState.is && (mustEatState.move).filter(pos => (pos.fromX == from.x &&
                 pos.fromY == from.y && pos.toX == to.x && pos.toY == to.y)).length > 0))
             if (legalMoveState.legal && (!legalMoveState.inMiddleSequence.is ||
-                (legalMoveState.inMiddleSequence.is && from.x == legalMoveState.inMiddleSequence.from.x &&
-                    from.y == legalMoveState.inMiddleSequence.from.y))) {
+                    (legalMoveState.inMiddleSequence.is && from.x == legalMoveState.inMiddleSequence.from.x &&
+                        from.y == legalMoveState.inMiddleSequence.from.y))) {
                 legalMoveState.is = true;
                 //update 15 moves
                 updateFifteenMoves(this, from);
                 return legalMoveState
             }
         if ((mustEatState.is && !(mustEatState.move).filter(pos => (pos.fromX == from.x &&
-            pos.fromY == from.y && pos.toX == to.x && pos.toY == to.y)).length > 0))
+                pos.fromY == from.y && pos.toX == to.x && pos.toY == to.y)).length > 0))
             legalMoveState.message.push("Must Eat!");
+        if (legalMoveState.inMiddleSequence.is)
+            legalMoveState.message.push("Must Eat! (continue the sequence)");
         legalMoveState.is = false;
         return legalMoveState;
     }
@@ -115,7 +117,7 @@ class CheckersLogic {
         for (let i = parseInt(from.x) + stepI, j = parseInt(from.y) + stepJ; this.condition(parseInt(i), parseInt(to.x), parseInt(stepI)) && this.condition(j, to.y, stepJ); i += stepI, j += stepJ) {
             if (this.board[j][i] != null) {
                 if (this.board[j][i].isBlack == this.isBlackTurn || (this.board[j][i].isBlack != this.isBlackTurn &&
-                    this.board[j + stepJ][i + stepI] != null && this.board[j + stepJ][i + stepI].isBlack != this.isBlackTurn))
+                        this.board[j + stepJ][i + stepI] != null && this.board[j + stepJ][i + stepI].isBlack != this.isBlackTurn))
                     return legalMoveState;
                 if (this.board[j][i].isBlack != this.isBlackTurn)
                     legalMoveState.arrOfPiecesToDelete.push({ x: i, y: j });
@@ -212,26 +214,18 @@ let getMoveDirection = (from, to) => {
 }
 
 let isDraw = (ths) => {
-    let isOnlyFifteenKingsMoveWithoutEating = (ths) => {
-        if (ths.fifteenKingsMoveCounter >= 15)
-            return true;
-        return false;
-    }
-    let isDrawAccepted = () => {
-        return false;
-    }
-
-    if (isDrawAccepted())
-        return true;
-    else if (isOnlyFifteenKingsMoveWithoutEating(ths))
-        return true;
-    return false;
+    // let isOnlyFifteenKingsMoveWithoutEating = (ths) => {
+    //     if (ths.fifteenKingsMoveCounter >= 15)
+    //         return true;
+    //     return false;
+    // }
+    // if (isOnlyFifteenKingsMoveWithoutEating(ths))
+    //     return true;
+    return ths.fifteenKingsMoveCounter >= 15;
 }
 
 let isWin = (ths) => {
     if (isNoPiecesleft(ths))
-        return true;
-    else if (playerSurronder())
         return true;
     else if (playerPiecesAllBlocked(ths)) {
         return true;
@@ -257,10 +251,6 @@ let playerPiecesAllBlocked = (ths) => {
     ths.endGamestate.win = true;
     ths.endGamestate.isBlack = !ths.isBlackTurn;
     return true
-}
-
-let playerSurronder = () => {
-    return false;
 }
 
 let isNoPiecesleft = (ths) => {

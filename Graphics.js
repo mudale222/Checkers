@@ -16,35 +16,21 @@ class Graphics {
             }
         }
     }
-    renderDivsBoard() {
+    createAndRenderBoardAndPanel() {
         document.querySelector("body").style.visibility = "visible";
         let isWhite = true;
         let gameDiv = document.createElement("div"),
             gameBoardDiv = document.createElement("div"),
-            panelDiv = document.createElement("div");
+            panelDiv = new Panel();
         let header = document.createElement("h1");
-        header.innerText = "CHECKERS";
+        header.innerText = "WELCOME TO CHECKERS!";
         gameDiv.appendChild(header);
-
-        let newGameBtn = document.createElement("button");
-        newGameBtn.id = "newGame";
-        newGameBtn.addEventListener("click",() => {
-            window.location.reload(false);
-            return;
-        });
-        newGameBtn.innerText="NEW GAME";
-        panelDiv.appendChild(newGameBtn);
-            
-        let header2 = document.createElement("h1");
-        header2.id = "messages";
-        header2.innerText = "asdfasdfasfda";
-        panelDiv.appendChild(header2);
 
         gameDiv.id = "game", gameBoardDiv.id = "gameBoard", panelDiv.id = "panel";
         insertElementToDOM("body", gameDiv);
         gameDiv.appendChild(gameBoardDiv);
         gameDiv.appendChild(panelDiv);
-        //insertElementToDOM("body", gameBoardDiv);
+
         for (let k = 0; k < this.symbolicBoard.length; k++) {
             gameBoardDiv.appendChild(document.createElement("br"));
             for (let l = 0; l < this.symbolicBoard.length; l++) {
@@ -56,6 +42,12 @@ class Graphics {
                 gameBoardDiv.appendChild(this.divsBoard[k][l]);
             }
         }
+
+        let messages = document.createElement("h1");
+        messages.id = "messages";
+        messages.textContent = "";
+        gameBoardDiv.appendChild(messages);
+
     }
     renderMovingMouseDown(currentImg, mouseMoveEvent) {
         currentImg.style.position = "absolute";
@@ -65,12 +57,34 @@ class Graphics {
         currentImg.style.left = mouseMoveEvent.clientX - currentImg.width / 2 + 'px';
         currentImg.style.top = mouseMoveEvent.clientY - currentImg.height / 2 + 'px';
     }
-    printMessages(messages) {
-        for (let i = 0; i < messages.length; i++)
-            document.getElementsByClassName("messages").innerText = messages[i];
+    renderMessages(messages) {
+        for (let i = 0; i < messages.length; i++) {
+            document.getElementById("messages").innerText = messages[i];
+            document.getElementById("messages").classList = "blinking";
+            sleep(2000).then(() => {
+                document.getElementById("messages").innerText = ""
+            })
+        }
         messages = [];
     }
     pushMessages(msg) {
         this.messages.push(msg);
+    }
+}
+
+class Panel {
+    constructor() {
+        this.panelDiv = document.createElement("div");
+        this.makeButton("new game!!");
+        this.makeButton("offer draw");
+        this.makeButton("resign game");
+        return this.panelDiv;
+    }
+    makeButton(name, action) {
+        let newButton = document.createElement("button");
+        newButton.id = name;
+        //newButton.addEventListener("click", action);
+        newButton.innerText = newButton.id.toUpperCase();
+        this.panelDiv.appendChild(newButton);
     }
 }

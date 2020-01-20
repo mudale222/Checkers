@@ -6,16 +6,10 @@
     background-color: saddlebrown;
 }
 
-.white, .black {
-    /* height: 65px;
-    width: 65px; */
-    /* width: 5vw;
-    height: 10vh; */
-    /* height: 12.5%;
-    width: 12.5%; */
+.white,
+.black {
     height: 9vh;
     width: 4.5vw;
-    /* //display: table-cell; */
     display: -webkit-inline-box;
     vertical-align: middle;
     text-align: center
@@ -33,64 +27,39 @@ br {
 }
 
 #game {
-    border-style: solid;
-    border-width: 5;
-    border-color: lightblue;
+    text-align: right;
     margin: auto;
-    text-align: -webkit-center;
-    /* position: relative;
-    /* top: 15%; */
     height: 100%;
     width: 100%;
-    background-image: url("https://freefrontend.com/assets/img/css-background-patterns/jason-quote-bg-pattern.png");
-    /* border-style: solid;
-    border-width: 5; */
-    /* display: table-cell;
-    height: -moz-min-content;
-    height: -webkit-min-content;
-    height: min-content; */
+    background-color: #afcffe;
 }
 
 #panel {
-    border-style: solid;
-    border-width: 5;
-    border-color: black;
+    padding-left: 50px;
     width: 50%;
     height: 85%;
     display: table-cell;
+    text-align: left;
 }
 
 #gameBoard {
-    /* position: absolute; */
-    /* top: 50%; */
-    /* transform: translate(-50%, -50%); */
-    /* float: left; */
+    padding-right: 50px;
     width: 50%;
     height: 85%;
     display: table-cell;
     margin: auto;
-    /* position: relative;
-    /* top: 15%; */
-    /* height: 75vh;
-    width: 40vw; */
-    border-style: solid;
-    border-width: 5;
-    /* visibility: hidden; */
 }
 
 html {
-    /* display: table; */
-    /* margin: auto; */
     height: 100%;
     width: 100%;
+    font-family: cursive;
 }
 
 body {
-    /* height: 75vh;
-    width: 75vw;
-    background-color: crimson; */
     height: 95%;
     width: 95%;
+    margin: auto;
 }
 
 h1 {
@@ -116,7 +85,7 @@ button {
     transition-duration: 0.4s;
     margin: 16px 0 !important;
     text-decoration: none;
-    font-size: 5vw;
+    font-size: 3vw;
     cursor: pointer;
     border-radius: 3px;
     background-color: white;
@@ -126,22 +95,28 @@ button {
 
 button {
     -webkit-transition-duration: 0.4s;
-    /* Safari */
     transition-duration: 0.4s;
 }
 
 button:hover {
     background-color: rgb(25, 145, 182);
-    /* Green */
     color: white;
 }
 
-/* div {
-    height: 0.1%;
-    width: 0.1%;
-} */
+.blinking {
+    animation: opacity 1s ease-in-out infinite;
+    opacity: 1;
+    color: red;
+}
 
-/* table {
-    height: 1%;
-    width: 1%;
-} *
+@keyframes opacity {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0
+    }
+    100% {
+        opacity: 1;
+    }
+}

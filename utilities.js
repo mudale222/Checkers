@@ -1,4 +1,5 @@
 "use strict";
+
 function insertElementToDOM(elementToAppenTo, elementToInsert) {
     let perent = document.querySelector(elementToAppenTo);
     perent.appendChild(elementToInsert);
@@ -39,4 +40,8 @@ function setBoardSize(arr) {
         newArr[i] = new Array(length);
     }
     return newArr;
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
