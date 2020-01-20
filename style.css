@@ -6,14 +6,15 @@
     background-color: saddlebrown;
 }
 
-.white,
-.black {
+.white, .black {
     /* height: 65px;
     width: 65px; */
     /* width: 5vw;
     height: 10vh; */
-    height: 12.5%;
-    width: 12.5%;
+    /* height: 12.5%;
+    width: 12.5%; */
+    height: 9vh;
+    width: 4.5vw;
     /* //display: table-cell; */
     display: -webkit-inline-box;
     vertical-align: middle;
@@ -34,12 +35,14 @@ br {
 #game {
     border-style: solid;
     border-width: 5;
-    border-color: blue;
+    border-color: lightblue;
     margin: auto;
+    text-align: -webkit-center;
     /* position: relative;
     /* top: 15%; */
     height: 100%;
     width: 100%;
+    background-image: url("https://freefrontend.com/assets/img/css-background-patterns/jason-quote-bg-pattern.png");
     /* border-style: solid;
     border-width: 5; */
     /* display: table-cell;
@@ -51,7 +54,7 @@ br {
 #panel {
     border-style: solid;
     border-width: 5;
-    border-color: green;
+    border-color: black;
     width: 50%;
     height: 85%;
     display: table-cell;
@@ -78,8 +81,8 @@ br {
 html {
     /* display: table; */
     /* margin: auto; */
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
 }
 
 body {
@@ -102,12 +105,41 @@ h2 {
     font-size: 1.25vw;
 }
 
+button {
+    box-sizing: inherit;
+    font: inherit;
+    overflow: visible;
+    text-transform: none;
+    -webkit-appearance: button;
+    padding: 15px 32px;
+    text-align: center;
+    transition-duration: 0.4s;
+    margin: 16px 0 !important;
+    text-decoration: none;
+    font-size: 5vw;
+    cursor: pointer;
+    border-radius: 3px;
+    background-color: white;
+    color: black;
+    border: 2px solid #008CBA;
+}
+
+button {
+    -webkit-transition-duration: 0.4s;
+    /* Safari */
+    transition-duration: 0.4s;
+}
+
+button:hover {
+    background-color: rgb(25, 145, 182);
+    /* Green */
+    color: white;
+}
 
 /* div {
     height: 0.1%;
     width: 0.1%;
 } */
-
 
 /* table {
     height: 1%;
